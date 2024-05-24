@@ -1,4 +1,6 @@
 #include <iostream>
+#include "graph.hpp"
+const long long inf = 1e18;
 
 int main()
 {
