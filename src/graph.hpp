@@ -19,7 +19,7 @@ namespace std {
             edg[a][b] = w;
             edg[b][a] = w;
         }
-        void setDemand(int v, int d) {
+        void setDemand(int v, long long d) {
             demand[v] = d;
         }
         void floydWarshal() {

@@ -59,14 +59,14 @@ namespace std {
                 }
             }
 
-            long long median = 0;
+            long double median = 0;
 
             for(int i=0; i<g.nVertices; i++) {
                 // encontrar o vértice mais próximo de i que está na solução
                 int bestVertex = solution[0];
                 for(int j=1; j<p; j++) {
                     if(g.dist[i][solution[j]] < g.dist[i][bestVertex]) {
-                        bestVertex = j;
+                        bestVertex = solution[j];
                     }
                 }
                 median += g.demand[i] * g.dist[i][bestVertex];
