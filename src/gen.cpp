@@ -10,12 +10,16 @@ int main(int argc, char* argv[])
                 >> customers >> medians >> capacity;
 
         file << problemNumber << ' ' << optimalSolution << '\n';
-        file << customers << ' ' << medians << ' ' << capacity << '\n';
+        file << std::min(customers, 20) << ' ' << medians << ' ' << capacity << '\n';
 
         for(int j=0; j<customers; j++) {
             int id, cordX, cordY, demand;
             std::cin >> id >> cordX >> cordY >> demand; 
-            file << id << ' ' << cordX << ' ' << cordY << ' ' << demand << '\n';
+
+            // Truncar testes
+            if(j < 20) {
+                file << id << ' ' << cordX << ' ' << cordY << ' ' << demand << '\n';
+            }
         }
         file.close();
     }

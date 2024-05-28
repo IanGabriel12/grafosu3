@@ -44,10 +44,10 @@ namespace std {
                 if(next == -1) break;
                 analysed[next] = true;
 
-                int bestDifference = 0;
+                long long bestDifference = 0;
                 int bestIndexToChange = -1;
                 for(int i=0; i<p; i++) {
-                    int difference = transmission[next] - transmission[solution[i]];
+                    long long difference = transmission[next] - transmission[solution[i]];
                     if(difference < bestDifference) {
                         bestDifference = difference;
                         bestIndexToChange = i;
@@ -59,8 +59,7 @@ namespace std {
                 }
             }
 
-            long double median = 0;
-
+            long long median = 0;
             for(int i=0; i<g.nVertices; i++) {
                 // encontrar o vértice mais próximo de i que está na solução
                 int bestVertex = solution[0];
