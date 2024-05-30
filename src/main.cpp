@@ -2,6 +2,7 @@
 #include <fstream>
 #include <math.h>
 #include <vector>
+#include <chrono>
 #include "graph.hpp"
 #include "teutz.hpp"
 #include "correct.hpp"
@@ -43,8 +44,17 @@ void runTest(int testId) {
 
     std::TeutzBart heuristic(g);
     std::BruteForcePMedian correct(g);
+
+    auto startOptimal = std::chrono::high_resolution_clock::now();
     long long optimal = correct.pMedian(medians);
+    auto endOptimal = std::chrono::high_resolution_clock::now();
+    auto durationOptimal = std::chrono::duration_cast<std::chrono::nanoseconds>(endOptimal - startOptimal).count();
+
+    auto startHeuristic = std::chrono::high_resolution_clock::now();
     long long answer = heuristic.pMedian(medians);
+    auto endHeuristic = std::chrono::high_resolution_clock::now();
+    auto durationHeuristic = std::chrono::duration_cast<std::chrono::nanoseconds>(endHeuristic - startHeuristic).count();
+
     std::cout << "Test " << testId << " finished" << std::endl;
     std::cout << "Optimal solution: " << optimal << std::endl;
     std::cout << "Optimal points: ";
@@ -62,6 +72,9 @@ void runTest(int testId) {
         std::cout << '(' << X << ',' << Y << ')' << ' ';
     }
     std::cout << std::endl;
+
+    std::cout << "Optimal solution execution time (ms): " << durationOptimal / 1e6 << std::endl;
+    std::cout << "Heuristic solution execution time (ms): " << durationHeuristic / 1e6 << std::endl;
 }
 
 int main(int argc, char* argv[]) 
