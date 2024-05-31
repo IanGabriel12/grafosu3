@@ -8,7 +8,9 @@ namespace std {
     struct BruteForcePMedian {
         Graph g;
         vector<int> solution;
-        BruteForcePMedian(Graph _g): g(_g) {}
+        BruteForcePMedian(Graph _g): g(_g) {
+            g.floydWarshal();
+        }
 
         long long pMedian(int p) {
             vector<int> currentSolution(p);
