@@ -85,6 +85,7 @@ Result runTest(int testId) {
             std::cout << '(' << X << ',' << Y << ')' << ' ';
         }
         std::cout << std::endl;
+        std::cout << "Optimal solution execution time (ms): " << (double) durationOptimal / 1e6 << std::endl;
     }
     std::cout << "Returned solution: " << answer << std::endl;
     std::cout << "Returned Points: ";
@@ -95,7 +96,6 @@ Result runTest(int testId) {
     }
     std::cout << std::endl;
 
-    std::cout << "Optimal solution execution time (ms): " << (double) durationOptimal / 1e6 << std::endl;
     std::cout << "Heuristic solution execution time (ms): " << (double) durationHeuristic / 1e6 << std::endl;
 
     file.close();

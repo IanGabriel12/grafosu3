@@ -35,10 +35,10 @@ namespace std {
                 for(int i=0; i<p; i++) {
                     for(int j=0; j<(int)toBeAnalysed.size(); j++) {
                         int x = currentSolution[i], y = toBeAnalysed[j];
-                        if(transmission[x] - transmission[y] < diff) {
+                        if(transmission[y] - transmission[x] < diff) {
                             bestIndexOfSolution = i;
                             bestIndexOfToBeAnalysed = j;
-                            diff = transmission[x] - transmission[y];
+                            diff = transmission[y] - transmission[x];
                         }
                     }
                 }
