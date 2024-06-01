@@ -59,7 +59,7 @@ Result runTest(int testId) {
             g.addEdge(c[i].id-1, c[j].id-1, dist);
         }
     }
-        
+
     auto startOptimal = std::chrono::high_resolution_clock::now();
     long long optimal;
     std::BruteForcePMedian correct(g);
@@ -118,11 +118,11 @@ void writeResults(std::vector<Result> &results) {
         Result r = results[i];
         
         if(isBigTest(r.testId)) {
-            bigfile << r.testId << ' ' << r.heuristicSolution << ' ';
+            bigfile << r.testId << ' ' << r.vertices << ' ' << r.heuristicSolution << ' ';
             bigfile << (double) r.heuristicTime / 1e6;
             bigfile << '\n';
         } else {
-            file << r.testId << ' ' << r.optimalSolution << ' ' << r.heuristicSolution << ' ';
+            file << r.testId << ' ' <<  r.vertices << ' ' << r.optimalSolution << ' ' << r.heuristicSolution << ' ';
             double diff = (double) abs(r.optimalSolution - r.heuristicSolution);
             file << (100.0 * (diff) / (double) r.optimalSolution) << ' ';
             file << (double) r.optimalTime / 1e6 << ' ' << (double) r.heuristicTime / 1e6;

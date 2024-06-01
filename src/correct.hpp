@@ -9,10 +9,11 @@ namespace std {
         Graph g;
         vector<int> solution;
         BruteForcePMedian(Graph _g): g(_g) {
-            g.floydWarshal();
+            
         }
 
         long long pMedian(int p) {
+            g.floydWarshal();
             vector<int> currentSolution(p);
             vector<int> bestSolution(p);
             long long bestMedian = inf;

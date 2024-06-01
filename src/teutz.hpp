@@ -6,58 +6,48 @@
 namespace std {
     struct TeutzBart {
         Graph g;
+        vector<int> solution;
+        TeutzBart(Graph _g): g(_g) {}
+
         /**
          * Número de transmissão dos vértices
          * trasmission[i] = Somatório(Demanda(j) * Distancia(i, j)) para todo j vértice de G
         */
-        vector<long long> transmission; 
-        vector<bool> analysed;
-        vector<int> solution; // Vértices pertencentes à solução da P-mediana
-        TeutzBart(Graph _g): g(_g) {
-            g.floydWarshal();
-            transmission.assign(g.nVertices, 0);
-            analysed.assign(g.nVertices, false);
-            for(int i=0; i<g.nVertices; i++) {
-                for(int j=0; j<g.nVertices; j++) {
-                    transmission[i] += _g.demand[j] * _g.dist[i][j];
-                }
-            }
-        }
 
         long long pMedian(int p) {
-            solution.resize(p);
-            fill(analysed.begin(), analysed.end(), false);
-            for(int i=0; i<p; i++) {
-                analysed[i] = true;
-                solution[i] = i;
+            vector<int> currentSolution(p);
+            vector<int> toBeAnalysed(g.nVertices-p);
+            vector<int> transmission(g.nVertices);
+
+            for(int i=0; i<p; i++) currentSolution[i] = i;
+            for(int i=0; i<g.nVertices-p; i++) toBeAnalysed[i] = p+i;
+
+            g.floydWarshal();
+            for(int i=0; i<g.nVertices; i++) {
+                for(int j=0; j<g.nVertices; j++) {
+                    transmission[i] += g.demand[j] * g.dist[i][j];
+                }
             }
 
-            while(1) {
-                int next = -1;
-                for(int i=0; i<g.nVertices; i++) {
-                    if(!analysed[i]) {
-                        next = i;
-                        break;
-                    }
-                }
-
-                if(next == -1) break;
-                analysed[next] = true;
-
-                long long bestDifference = 0;
-                int bestIndexToChange = -1;
+            while(!toBeAnalysed.empty()) {
+                int diff = 0;
+                int bestIndexOfSolution = -1, bestIndexOfToBeAnalysed = -1;
                 for(int i=0; i<p; i++) {
-                    long long difference = transmission[next] - transmission[solution[i]];
-                    if(difference < bestDifference) {
-                        bestDifference = difference;
-                        bestIndexToChange = i;
+                    for(int j=0; j<(int)toBeAnalysed.size(); j++) {
+                        int x = currentSolution[i], y = toBeAnalysed[j];
+                        if(transmission[x] - transmission[y] < diff) {
+                            bestIndexOfSolution = i;
+                            bestIndexOfToBeAnalysed = j;
+                            diff = transmission[x] - transmission[y];
+                        }
                     }
                 }
-
-                if(bestIndexToChange != -1) {
-                    solution[bestIndexToChange] = next;
-                }
+                if(bestIndexOfSolution == -1) break;
+                currentSolution[bestIndexOfSolution] = toBeAnalysed[bestIndexOfToBeAnalysed];
+                toBeAnalysed.erase(toBeAnalysed.begin() + bestIndexOfToBeAnalysed);
             }
+
+            solution = currentSolution;
 
             long long median = 0;
             for(int i=0; i<g.nVertices; i++) {
