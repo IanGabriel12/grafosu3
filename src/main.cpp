@@ -6,7 +6,7 @@
 #include <iomanip>
 #include <sstream>
 #include "graph.hpp"
-#include "teutz.hpp"
+#include "teitz.hpp"
 #include "correct.hpp"
 
 const long long inf = 1e18;
@@ -70,7 +70,7 @@ Result runTest(int testId) {
     auto durationOptimal = std::chrono::duration_cast<std::chrono::nanoseconds>(endOptimal - startOptimal).count();
 
     auto startHeuristic = std::chrono::high_resolution_clock::now();
-    std::TeutzBart heuristic(g);
+    std::TeitzBart heuristic(g);
     long long answer = heuristic.pMedian(medians);
     auto endHeuristic = std::chrono::high_resolution_clock::now();
     auto durationHeuristic = std::chrono::duration_cast<std::chrono::nanoseconds>(endHeuristic - startHeuristic).count();

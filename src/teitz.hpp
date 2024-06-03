@@ -1,13 +1,13 @@
 #include<vector>
 #include "graph.hpp"
-#ifndef TEUTZ_H
-#define TEUTZ_H
+#ifndef TEITZ_H
+#define TEITZ_H
 
 namespace std {
-    struct TeutzBart {
+    struct TeitzBart {
         Graph g;
         vector<int> solution;
-        TeutzBart(Graph _g): g(_g) {}
+        TeitzBart(Graph _g): g(_g) {}
 
         /**
          * Número de transmissão dos vértices
